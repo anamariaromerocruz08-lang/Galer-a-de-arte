@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galería de Arte</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Galería de Arte</h1>
+        <a href="#" class="btn-catalogo">Descargar Catálogo de la Temporada</a>
+    </header>
+
+    <main class="galeria-container">
+        <div class="obra-card">
+            <img src="ruta-de-tu-imagen.jpg" alt="Nombre de la obra">
+            <div class="obra-info">
+                <h3>Reflejos del Alma</h3>
+                <p>Óleo sobre lienzo - 2026</p>
+                <button class="btn-oferta" onclick="abrirModal('Reflejos del Alma')">Hacer una Oferta</button>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
