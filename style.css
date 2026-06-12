@@ -20,7 +20,7 @@ h1 {
     letter-spacing: 2px;
 }
 
-/* Botón Catálogo Elegante (Bordes finos) */
+/* Botón Catálogo Elegante */
 .btn-catalogo {
     text-decoration: none;
     color: #1a1a1a;
@@ -52,7 +52,7 @@ h1 {
 /* Botón Oferta */
 .btn-oferta {
     background-color: transparent;
-    border: 1px solid #0070f3; /* Un toque azul sutil */
+    border: 1px solid #0070f3;
     color: #0070f3;
     padding: 8px 16px;
     cursor: pointer;
