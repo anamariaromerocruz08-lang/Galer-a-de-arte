@@ -22,6 +22,44 @@
                 <button class="btn-oferta" onclick="abrirModal('Reflejos del Alma')">Hacer una Oferta</button>
             </div>
         </div>
+        <!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Galería de Arte - Ana María</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Galería de Arte</h1>
+        <a href="catalogo.pdf" download class="btn-primary">Descargar Catálogo de la Temporada</a>
+    </header>
+
+    <main class="gallery">
+        <!-- Tarjeta de Obra -->
+        <div class="card">
+            <img src="tu-imagen.jpg" alt="Obra">
+            <h3>Reflejos del Alma</h3>
+            <p>Óleo sobre lienzo - 2026</p>
+            <button class="btn-offer" onclick="openModal()">Hacer una Oferta</button>
+        </div>
+    </main>
+
+    <!-- Modal de Oferta -->
+    <div id="offerModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Haz tu oferta</h2>
+            <form id="offerForm">
+                <input type="text" placeholder="Tu nombre" required>
+                <input type="number" placeholder="Tu oferta ($)" required>
+                <button type="submit" class="btn-primary">Enviar a Ana</button>
+            </form>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
     </main>
 
     <script src="script.js"></script>
