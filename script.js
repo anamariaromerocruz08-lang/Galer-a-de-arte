@@ -9,3 +9,11 @@ function abrirModal(nombreObra) {
         // Aquí se llamaría a la función del Bot de Telegram para enviarte el mensaje
     }
 }
+function openModal() { document.getElementById("offerModal").style.display = "block"; }
+function closeModal() { document.getElementById("offerModal").style.display = "none"; }
+
+document.getElementById("offerForm").onsubmit = function(e) {
+    e.preventDefault();
+    alert("¡Oferta enviada! Ana se pondrá en contacto pronto.");
+    closeModal();
+};
