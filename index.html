@@ -174,3 +174,75 @@
 
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galería de Arte Internacional</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Encabezado Principal -->
+    <header>
+        <div class="header-container">
+            <h1>Galería de Arte Internacional</h1>
+            <p class="subtitle">Explora nuestra colección exclusiva — Más de 100 obras nuevas cada año</p>
+            <a href="catalogo.pdf" download class="btn-catalog">📥 Descargar Catálogo de la Temporada</a>
+        </div>
+    </header>
+
+    <!-- Contenedor dinámico de la Galería -->
+    <main class="gallery-container" id="gallery-grid">
+        <!-- Las obras se cargarán automáticamente aquí desde el archivo script.js -->
+    </main>
+
+    <!-- Formulario Modal de Oferta y Compra -->
+    <div id="purchaseModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeOfferModal()">&times;</span>
+            <h2>Formulario de Oferta Formal</h2>
+            <p id="modalDescription" class="modal-art-title">Estás ofertando por una obra</p>
+            
+            <form id="extendedOfferForm">
+                <input type="hidden" id="selectedArt">
+                <input type="hidden" id="selectedArtist">
+
+                <label>Nombre Completo:</label>
+                <input type="text" id="buyerName" placeholder="Ej. Juan Pérez López" required>
+
+                <label>Correo Electrónico:</label>
+                <input type="email" id="buyerEmail" placeholder="ejemplo@correo.com" required>
+
+                <label>Número de Teléfono:</label>
+                <input type="tel" id="buyerPhone" placeholder="Ej. +52 55 1234 5678" required>
+
+                <label>Dirección de Envío Completa:</label>
+                <textarea id="buyerAddress" placeholder="Calle, Número, Colonia, Código Postal, Ciudad y País" rows="3" required></textarea>
+
+                <div class="form-row">
+                    <div>
+                        <label>Tu Oferta ($):</label>
+                        <input type="number" id="buyerOffer" placeholder="Monto" required>
+                    </div>
+                    <div>
+                        <label>Tipo de Pago:</label>
+                        <select id="paymentType" required>
+                            <option value="" disabled selected>Selecciona una opción</option>
+                            <option value="Transferencia Bancaria">Transferencia Bancaria</option>
+                            <option value="Tarjeta de Crédito/Débito">Tarjeta de Crédito/Débito</option>
+                            <option value="PayPal">PayPal</option>
+                            <option value="Efectivo / Depósito">Depósito OXXO</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-submit">Enviar Oferta de Compra</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
