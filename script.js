@@ -160,3 +160,28 @@ window.onload = function() {
     loadGallery();
     notificarVisita(); 
 };
+// Seleccionar los elementos del DOM (Document Object Model)
+const modal = document.getElementById("imageModal");
+const modalImg = document.getElementById("expandedImg");
+const closeBtn = document.querySelector(".close-btn");
+const galleryImages = document.querySelectorAll(".gallery-item img");
+
+// Recorrer todas las imágenes de la galería para darles la función de clic
+galleryImages.forEach(img => {
+    img.addEventListener("click", function() {
+        modal.style.display = "block"; // Mostrar la ventana emergente
+        modalImg.src = this.src;       // Asignar la misma URL de la imagen clickeada
+    });
+});
+
+// Función para cerrar el modal al hacer clic en la "X"
+closeBtn.addEventListener("click", function() {
+    modal.style.display = "none";
+});
+
+// Función para cerrar el modal si se hace clic en el fondo oscuro (fuera de la imagen)
+modal.addEventListener("click", function(event) {
+    if (event.target === modal) {
+        modal.style.display = "none";
+    }
+});
