@@ -185,3 +185,32 @@ modal.addEventListener("click", function(event) {
         modal.style.display = "none";
     }
 });
+// La URL que obtendrás en el paso de Google Apps Script (abajo)
+const scriptURL = 'AQUI_PEGARAS_TU_URL_DE_GOOGLE'; 
+
+const form = document.getElementById('formulario-compra');
+const btnSubmit = document.getElementById('btn-submit');
+
+form.addEventListener('submit', e => {
+  e.preventDefault(); // Evita que la página cambie
+
+  // Cambia el estado del botón para que el usuario sepa que está cargando
+  const btnTextoOriginal = btnSubmit.innerHTML;
+  btnSubmit.innerHTML = 'Procesando Oferta...';
+  btnSubmit.disabled = true;
+
+  // Enviar los datos
+  fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+    .then(response => {
+      alert('¡Excelente! Tu oferta ha sido enviada con éxito. Nos pondremos en contacto contigo.');
+      form.reset(); // Limpia los campos del formulario
+      btnSubmit.innerHTML = btnTextoOriginal;
+      btnSubmit.disabled = false;
+    })
+    .catch(error => {
+      console.error('Error!', error.message);
+      alert('Hubo un problema al enviar la oferta. Por favor, inténtalo de nuevo.');
+      btnSubmit.innerHTML = btnTextoOriginal;
+      btnSubmit.disabled = false;
+    });
+});
