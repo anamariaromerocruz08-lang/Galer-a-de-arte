@@ -674,3 +674,90 @@ input, select, textarea {
     box-shadow: 0 4px 15px rgba(0, 168, 150, 0.3);
 }
 .btn-submit:hover { background-color: #008f80; }
+:root {
+    --bg-color: #f0f4f8;
+    --navy-blue: #0f2b46;
+    --pastel-blue: #92cbdc;
+    --accent-gold: #cca43b;
+    --accent-red: #d90429;
+    --accent-green: #00a896;
+    --text-dark: #111111;
+}
+
+/* Evita desbordamientos globales */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-dark);
+    margin: 0; 
+    padding: 0;
+    overflow-x: hidden; /* Evita que la página se mueva hacia los lados en celular */
+}
+
+header {
+    background: linear-gradient(135deg, var(--navy-blue) 0%, #1a4268 100%);
+    color: white; 
+    padding: 40px 15px; /* Reducido para que no ocupe tanta pantalla en móvil */
+    text-align: center;
+    box-shadow: 0 4px 25px rgba(0,0,0,0.2);
+}
+
+.header-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.header-container h1 { 
+    font-size: 2rem; /* Tamaño adaptable */
+    margin: 0 0 10px 0; 
+    font-weight: 700; 
+    line-height: 1.2;
+}
+
+.subtitle { 
+    font-size: 1rem; 
+    color: var(--pastel-blue); 
+    margin-bottom: 25px; 
+}
+
+.btn-catalog {
+    background-color: transparent; 
+    color: white; 
+    border: 2px solid var(--pastel-blue);
+    padding: 12px 24px; 
+    font-size: 0.95rem; 
+    font-weight: bold; 
+    border-radius: 50px;
+    text-decoration: none; 
+    transition: all 0.3s ease; 
+    display: inline-block;
+    max-width: 100%; /* No se sale de la pantalla */
+}
+
+.btn-catalog:hover {
+    background-color: var(--pastel-blue); 
+    color: var(--navy-blue);
+    transform: translateY(-3px); 
+    box-shadow: 0 6px 20px rgba(146, 203, 220, 0.4);
+}
+
+/* CUADRÍCULA RESPONSIVA INTELIGENTE */
+.gallery-container {
+    display: grid; 
+    /* Cambia el tamaño de las tarjetas según el espacio disponible automáticamente */
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px; 
+    padding: 30px 15px; 
+    max-width: 1400px; 
+    margin: 0 auto;
+}
+
+.art-card {
+    background: white; 
+    border-radius: 18px; 
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
