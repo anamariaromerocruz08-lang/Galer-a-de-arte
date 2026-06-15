@@ -126,3 +126,115 @@ input, select, textarea { width: 100%; padding: 11px; border: 1px solid #ccc; bo
     .modal-content { padding: 20px; margin: 5% auto; }
     .form-group { flex: none; width: 100%; } /* Pone los inputs uno abajo del otro en el celular */
 }
+:root {
+    --bg-color: #f0f4f8;
+    --navy-blue: #0f2b46;
+    --pastel-blue: #92cbdc;
+    --accent-gold: #cca43b;
+    --accent-red: #d90429;
+    --accent-green: #00a896;
+    --text-dark: #111111;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-dark);
+    margin: 0; padding: 0;
+}
+
+header {
+    background: linear-gradient(135deg, var(--navy-blue) 0%, #1a4268 100%);
+    color: white; padding: 60px 20px; text-align: center;
+    box-shadow: 0 4px 25px rgba(0,0,0,0.2);
+}
+
+.header-container h1 { font-size: 2.5rem; margin: 0 0 10px 0; font-weight: 700; }
+.subtitle { font-size: 1.1rem; color: var(--pastel-blue); margin-bottom: 30px; }
+
+.btn-catalog {
+    background-color: transparent; color: white; border: 2px solid var(--pastel-blue);
+    padding: 12px 25px; font-size: 0.95rem; font-weight: bold; border-radius: 50px;
+    text-decoration: none; transition: all 0.3s ease; display: inline-block;
+}
+.btn-catalog:hover {
+    background-color: var(--pastel-blue); color: var(--navy-blue);
+    transform: translateY(-3px); box-shadow: 0 6px 20px rgba(146, 203, 220, 0.4);
+}
+
+.gallery-container {
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px; padding: 40px 20px; max-width: 1400px; margin: 0 auto;
+}
+
+.art-card {
+    background: white; border-radius: 18px; overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05); position: relative;
+    display: flex; flex-direction: column;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+}
+.art-card:hover { transform: translateY(-12px); box-shadow: 0 20px 40px rgba(15, 43, 70, 0.2); }
+
+.art-image {
+    width: 100%; height: 240px; object-fit: cover;
+    border-bottom: 4px solid var(--pastel-blue); transition: transform 0.5s ease;
+}
+.art-card:hover .art-image { transform: scale(1.03); }
+
+.badge {
+    position: absolute; top: 15px; left: 15px; padding: 6px 14px;
+    border-radius: 30px; font-size: 0.75rem; font-weight: bold; color: white; z-index: 10;
+}
+.nacional { background-color: var(--accent-green); }
+.extranjero { background-color: var(--accent-red); }
+
+.card-info { padding: 20px; text-align: left; display: flex; flex-direction: column; flex-grow: 1; }
+.card-info h3 { margin: 0 0 6px 0; font-size: 1.25rem; color: var(--navy-blue); }
+.artist { margin: 0 0 10px 0; font-size: 0.95rem; color: #444; }
+.details { margin: 0 0 20px 0; font-size: 0.85rem; color: #777; font-style: italic; }
+
+.btn-action {
+    background-color: var(--navy-blue); color: white; border: none;
+    padding: 12px; font-size: 0.95rem; font-weight: bold; border-radius: 10px;
+    cursor: pointer; margin-top: auto; transition: all 0.2s ease;
+}
+.btn-action:hover { background-color: var(--accent-gold); color: var(--navy-blue); }
+
+.modal {
+    display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); z-index: 100; backdrop-filter: blur(5px);
+    overflow-y: auto; padding: 20px 10px;
+}
+.modal-content {
+    background-color: white; margin: 2% auto; padding: 25px;
+    width: 100%; max-width: 500px; border-radius: 20px; position: relative;
+}
+.close-btn { position: absolute; top: 10px; right: 18px; font-size: 2rem; cursor: pointer; color: #aaa; }
+.close-btn:hover { color: black; }
+.modal-art-title { background: #eef5f8; padding: 12px; border-radius: 8px; font-weight: 600; font-size: 0.95rem; }
+
+label { display: block; margin: 12px 0 5px 0; font-weight: 600; font-size: 0.85rem; }
+input, select, textarea { width: 100%; padding: 11px; border: 1px solid #ccc; border-radius: 8px; font-size: 0.95rem; }
+
+.form-row { display: flex; flex-wrap: wrap; gap: 15px; }
+.form-group { flex: 1; min-width: 200px; }
+
+.btn-submit {
+    width: 100%; background-color: var(--accent-green); color: white;
+    border: none; padding: 14px; font-size: 1.05rem; font-weight: bold;
+    border-radius: 10px; margin-top: 20px; cursor: pointer;
+}
+.btn-submit:hover { background-color: #008f80; }
+
+@media (max-width: 600px) {
+    header { padding: 40px 15px; }
+    .header-container h1 { font-size: 1.8rem; }
+    .subtitle { font-size: 0.95rem; margin-bottom: 20px; }
+    .btn-catalog { width: 100%; padding: 12px; text-align: center; }
+    .gallery-container { padding: 20px 10px; gap: 15px; }
+    .modal-content { padding: 20px; margin: 5% auto; }
+    .form-group { flex: none; width: 100%; }
+}
