@@ -98,3 +98,64 @@
         </div>
         <div class="gallery-item">
             <img src="
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adquisición de Obra</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="form-wrapper">
+        <div class="form-container">
+            <h2>Formulario de Adquisición y Oferta</h2>
+            <p class="subtitle">Oferta formal para adquirir una obra</p>
+
+            <form id="formulario-compra">
+                <div class="input-group">
+                    <label for="nombre">Nombre Completo del Oferente:</label>
+                    <input type="text" id="nombre" name="nombre" placeholder="Ej. Ana María" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="correo">Correo Electrónico de Contacto:</label>
+                    <input type="email" id="correo" name="correo" placeholder="ejemplo@correo.com" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="telefono">Número de Teléfono Celular:</label>
+                    <input type="tel" id="telefono" name="telefono" placeholder="Ej. +52 55 1234 5678" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="direccion">Dirección de Envío Completa:</label>
+                    <textarea id="direccion" name="direccion" rows="3" placeholder="Dirección para envío postal seguro..." required></textarea>
+                </div>
+
+                <div class="row-group">
+                    <div class="input-group">
+                        <label for="monto">Tu Oferta Formal ($ USD):</label>
+                        <input type="number" id="monto" name="monto" placeholder="Monto" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="pago">Preferencia de Pago:</label>
+                        <select id="pago" name="pago" required>
+                            <option value="" disabled selected>Selecciona una opción</option>
+                            <option value="Transferencia">Transferencia Bancaria</option>
+                            <option value="Tarjeta">Tarjeta de Crédito / Débito</option>
+                            <option value="PayPal">PayPal</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button type="submit" id="btn-submit">Enviar Datos de Compra</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
