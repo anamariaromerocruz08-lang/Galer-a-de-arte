@@ -446,3 +446,386 @@ window.onload = function() {
     loadGallery();
     notificarVisita(); 
 };
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galería de Arte</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Galería de Arte</h1>
+        <a href="#" class="btn-catalogo">Descargar Catálogo de la Temporada</a>
+    </header>
+
+    <main class="galeria-container">
+        <div class="obra-card">
+            <img src="ruta-de-tu-imagen.jpg" alt="Nombre de la obra">
+            <div class="obra-info">
+                <h3>Reflejos del Alma</h3>
+                <p>Óleo sobre lienzo - 2026</p>
+                <button class="btn-oferta" onclick="abrirModal('Reflejos del Alma')">Hacer una Oferta</button>
+            </div>
+        </div>
+        <!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Galería de Arte - Ana María</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Galería de Arte</h1>
+        <a href="catalogo.pdf" download class="btn-primary">Descargar Catálogo de la Temporada</a>
+    </header>
+
+    <main class="gallery">
+        <!-- Tarjeta de Obra -->
+        <div class="card">
+            <img src="tu-imagen.jpg" alt="Obra">
+            <h3>Reflejos del Alma</h3>
+            <p>Óleo sobre lienzo - 2026</p>
+            <button class="btn-offer" onclick="openModal()">Hacer una Oferta</button>
+        </div>
+    </main>
+
+    <!-- Modal de Oferta -->
+    <div id="offerModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Haz tu oferta</h2>
+            <form id="offerForm">
+                <input type="text" placeholder="Tu nombre" required>
+                <input type="number" placeholder="Tu oferta ($)" required>
+                <button type="submit" class="btn-primary">Enviar a Ana</button>
+            </form>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galería de Arte Internacional</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Encabezado Principal -->
+    <header>
+        <div class="header-container">
+            <h1>Galería de Arte Internacional</h1>
+            <p class="subtitle">Explora obras exclusivas de artistas locales y del extranjero</p>
+            <a href="catalogo.pdf" download class="btn-catalog">📥 Descargar Catálogo de la Temporada</a>
+        </div>
+    </header>
+
+    <!-- Sección de la Galería -->
+    <main class="gallery-container">
+        
+        <!-- Obra 1 (Local) -->
+        <div class="art-card">
+            <div class="badge local">Nacional</div>
+            <div class="img-placeholder">🖼️ [Imagen: Reflejos del Alma]</div>
+            <div class="card-info">
+                <h3>Reflejos del Alma</h3>
+                <p class="artist">Por: <strong>Ana María</strong> (México)</p>
+                <p class="details">Óleo sobre lienzo — 2026</p>
+                <button class="btn-action" onclick="openOfferModal('Reflejos del Alma', 'Ana María')">Hacer una Oferta / Comprar</button>
+            </div>
+        </div>
+
+        <!-- Obra 2 (Extranjero - Francia) -->
+        <div class="art-card">
+            <div class="badge international">Francia</div>
+            <div class="img-placeholder">🖼️ [Imagen: Atardecer en París]</div>
+            <div class="card-info">
+                <h3>Atardecer en París</h3>
+                <p class="artist">Por: <strong>Jean-Pierre Clauve</strong></p>
+                <p class="details">Acuarela sobre papel — 2025</p>
+                <button class="btn-action" onclick="openOfferModal('Atardecer en París', 'Jean-Pierre Clauve')">Hacer una Oferta / Comprar</button>
+            </div>
+        </div>
+
+        <!-- Obra 3 (Extranjero - Italia) -->
+        <div class="art-card">
+            <div class="badge international">Italia</div>
+            <div class="img-placeholder">🖼️ [Imagen: Susurros de Florencia]</div>
+            <div class="card-info">
+                <h3>Susurros de Florencia</h3>
+                <p class="artist">Por: <strong>Elena Rossi</strong></p>
+                <p class="details">Técnica mixta — 2026</p>
+                <button class="btn-action" onclick="openOfferModal('Susurros de Florencia', 'Elena Rossi')">Hacer una Oferta / Comprar</button>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Formulario Modal de Oferta y Compra Extendida -->
+    <div id="purchaseModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeOfferModal()">&times;</span>
+            <h2>Formulario de Oferta Formal</h2>
+            <p id="modalDescription" class="modal-art-title">Estás ofertando por una obra</p>
+            
+            <form id="extendedOfferForm">
+                <!-- Información de la Obra (Oculta pero se envía) -->
+                <input type="hidden" id="selectedArt">
+                <input type="hidden" id="selectedArtist">
+
+                <!-- Datos del Comprador -->
+                <label>Nombre Completo:</label>
+                <input type="text" id="buyerName" placeholder="Ej. Juan Pérez López" required>
+
+                <label>Correo Electrónico:</label>
+                <input type="email" id="buyerEmail" placeholder="ejemplo@correo.com" required>
+
+                <label>Número de Teléfono:</label>
+                <input type="tel" id="buyerPhone" placeholder="Ej. +52 55 1234 5678" required>
+
+                <label>Dirección de Envío Completa:</label>
+                <textarea id="buyerAddress" placeholder="Calle, Número, Colonia, Código Postal, Ciudad y País" rows="3" required></textarea>
+
+                <div class="form-row">
+                    <div>
+                        <label>Tu Oferta ($):</label>
+                        <input type="number" id="buyerOffer" placeholder="Monto en USD o MXN" required>
+                    </div>
+                    <div>
+                        <label>Tipo de Pago:</label>
+                        <select id="paymentType" required>
+                            <option value="" disabled selected>Selecciona una opción</option>
+                            <option value="Transferencia Bancaria">Transferencia Bancaria</option>
+                            <option value="Tarjeta de Crédito/Débito">Tarjeta de Crédito/Débito</option>
+                            <option value="PayPal">PayPal</option>
+                            <option value="Efectivo / Depósito">Depósito OXXO / Ventanilla</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-submit">Enviar Oferta de Compra</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galería de Arte Internacional</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Encabezado Principal -->
+    <header>
+        <div class="header-container">
+            <h1>Galería de Arte Internacional</h1>
+            <p class="subtitle">Explora nuestra colección exclusiva — Más de 100 obras nuevas cada año</p>
+            <a href="catalogo.pdf" download class="btn-catalog">📥 Descargar Catálogo de la Temporada</a>
+        </div>
+    </header>
+
+    <!-- Contenedor dinámico de la Galería -->
+    <main class="gallery-container" id="gallery-grid">
+        <!-- Las obras se cargarán automáticamente aquí desde el archivo script.js -->
+    </main>
+
+    <!-- Formulario Modal de Oferta y Compra -->
+    <div id="purchaseModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeOfferModal()">&times;</span>
+            <h2>Formulario de Oferta Formal</h2>
+            <p id="modalDescription" class="modal-art-title">Estás ofertando por una obra</p>
+            
+            <form id="extendedOfferForm">
+                <input type="hidden" id="selectedArt">
+                <input type="hidden" id="selectedArtist">
+
+                <label>Nombre Completo:</label>
+                <input type="text" id="buyerName" placeholder="Ej. Juan Pérez López" required>
+
+                <label>Correo Electrónico:</label>
+                <input type="email" id="buyerEmail" placeholder="ejemplo@correo.com" required>
+
+                <label>Número de Teléfono:</label>
+                <input type="tel" id="buyerPhone" placeholder="Ej. +52 55 1234 5678" required>
+
+                <label>Dirección de Envío Completa:</label>
+                <textarea id="buyerAddress" placeholder="Calle, Número, Colonia, Código Postal, Ciudad y País" rows="3" required></textarea>
+
+                <div class="form-row">
+                    <div>
+                        <label>Tu Oferta ($):</label>
+                        <input type="number" id="buyerOffer" placeholder="Monto" required>
+                    </div>
+                    <div>
+                        <label>Tipo de Pago:</label>
+                        <select id="paymentType" required>
+                            <option value="" disabled selected>Selecciona una opción</option>
+                            <option value="Transferencia Bancaria">Transferencia Bancaria</option>
+                            <option value="Tarjeta de Crédito/Débito">Tarjeta de Crédito/Débito</option>
+                            <option value="PayPal">PayPal</option>
+                            <option value="Efectivo / Depósito">Depósito OXXO</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-submit">Enviar Oferta de Compra</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gran Galería de Arte Internacional</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <h1>Gran Galería de Arte Internacional</h1>
+            <p class="subtitle">Exposición Anual Completa — Explorando 500 Obras de Alta Gama</p>
+            <a href="catalogo.pdf" download class="btn-catalog">📥 Descargar Catálogo de la Temporada (PDF)</a>
+        </div>
+    </header>
+
+    <main class="gallery-container" id="gallery-grid">
+        </main>
+
+    <div id="purchaseModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeOfferModal()">&times;</span>
+            <h2>Formulario de Adquisición y Oferta</h2>
+            <p id="modalDescription" class="modal-art-title">Cargando datos de la obra...</p>
+            
+            <form id="extendedOfferForm">
+                <input type="hidden" id="selectedArt">
+                <input type="hidden" id="selectedArtist">
+
+                <label>Nombre Completo del Oferente:</label>
+                <input type="text" id="buyerName" placeholder="Ej. Ana María Romero Cruz" required>
+
+                <label>Correo Electrónico de Contacto:</label>
+                <input type="email" id="buyerEmail" placeholder="ejemplo@correo.com" required>
+
+                <label>Número de Teléfono Celular:</label>
+                <input type="tel" id="buyerPhone" placeholder="Ej. +52 55 1234 5678" required>
+
+                <label>Dirección de Envío Completa (Calle, Número, Ciudad, Estado, País):</label>
+                <textarea id="buyerAddress" placeholder="Escribe tu dirección detallada para envío postal seguro..." rows="3" required></textarea>
+
+                <div class="form-row">
+                    <div>
+                        <label>Tu Oferta Formal ($):</label>
+                        <input type="number" id="buyerOffer" placeholder="Monto en USD" required>
+                    </div>
+                    <div>
+                        <label>Preferencia de Pago:</label>
+                        <select id="paymentType" required>
+                            <option value="" disabled selected>Selecciona una opción</option>
+                            <option value="Transferencia Bancaria">Transferencia Bancaria Internacional</option>
+                            <option value="Tarjeta de Crédito/Débito">Tarjeta de Crédito / Débito</option>
+                            <option value="PayPal">PayPal CheckOut</option>
+                            <option value="Efectivo / Depósito">Depósito en Ventanilla / OXXO</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-submit">Enviar Datos de Compra a Ana María</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gran Galería de Arte Internacional</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <h1>Gran Galería de Arte Internacional</h1>
+            <p class="subtitle">Exposición Anual Completa — Explorando 500 Obras de Alta Gama</p>
+            <a href="#" class="btn-catalog">📥 Descargar Catálogo de la Temporada (PDF)</a>
+        </div>
+    </header>
+
+    <main class="gallery-container" id="gallery-grid">
+        </main>
+
+    <div id="purchaseModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeOfferModal()">&times;</span>
+            <h2>Formulario de Adquisición y Oferta</h2>
+            <p id="modalDescription" class="modal-art-title">Cargando datos...</p>
+            
+            <form id="extendedOfferForm">
+                <input type="hidden" id="selectedArt">
+                <input type="hidden" id="selectedArtist">
+
+                <label>Nombre Completo del Oferente:</label>
+                <input type="text" id="buyerName" placeholder="Ej. Ana María" required>
+
+                <label>Correo Electrónico de Contacto:</label>
+                <input type="email" id="buyerEmail" placeholder="ejemplo@correo.com" required>
+
+                <label>Número de Teléfono Celular:</label>
+                <input type="tel" id="buyerPhone" placeholder="Ej. +52 55 1234 5678" required>
+
+                <label>Dirección de Envío Completa:</label>
+                <textarea id="buyerAddress" placeholder="Dirección para envío postal seguro..." rows="3" required></textarea>
+
+                <div class="form-row">
+                    <div>
+                        <label>Tu Oferta Formal ($ USD):</label>
+                        <input type="number" id="buyerOffer" placeholder="Monto" required>
+                    </div>
+                    <div>
+                        <label>Preferencia de Pago:</label>
+                        <select id="paymentType" required>
+                            <option value="" disabled selected>Selecciona una opción</option>
+                            <option value="Transferencia Bancaria">Transferencia Bancaria</option>
+                            <option value="Tarjeta de Crédito/Débito">Tarjeta de Crédito / Débito</option>
+                            <option value="PayPal">PayPal CheckOut</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-submit">Enviar Datos de Compra</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
