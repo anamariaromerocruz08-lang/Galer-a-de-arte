@@ -214,3 +214,26 @@ form.addEventListener('submit', e => {
       btnSubmit.disabled = false;
     });
 });
+// Esta función envía el catálogo a tu página web
+function doGet() {
+  try {
+    var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Catalogo");
+    var datos = sheet.getDataRange().getValues();
+    var urls = [];
+    
+    // Saltamos la fila 1 (los encabezados) y leemos las URLs
+    for (var i = 1; i < datos.length; i++) {
+      if(datos[i][0] !== "") {
+        urls.push(datos[i][0]);
+      }
+    }
+    
+    // Devolvemos la lista en formato JSON
+    return ContentService.createTextOutput(JSON.stringify(urls))
+      .setMimeType(ContentService.MimeType.JSON);
+      
+  } catch(error) {
+    return ContentService.createTextOutput(JSON.stringify({"error": error.message}))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}
