@@ -237,3 +237,49 @@ function doGet() {
       .setMimeType(ContentService.MimeType.JSON);
   }
 }
+// Pega la misma URL que sacaste de Google Apps Script
+const API_URL = 'AQUI_PEGARAS_TU_URL_DE_GOOGLE'; 
+
+const galleryContainer = document.getElementById("gallery-container");
+const modal = document.getElementById("imageModal");
+const modalImg = document.getElementById("expandedImg");
+
+// 1. Función para cargar el catálogo desde Google Sheets
+async function cargarGaleria() {
+    try {
+        const respuesta = await fetch(API_URL);
+        const imagenes = await respuesta.json();
+        
+        // Limpiar el contenedor (quitar el "Cargando...")
+        galleryContainer.innerHTML = '';
+        
+        // Construir cada obra
+        imagenes.forEach(url => {
+            // Crear el div contenedor
+            const divItem = document.createElement("div");
+            divItem.className = "gallery-item";
+            
+            // Crear la imagen
+            const img = document.createElement("img");
+            img.src = url;
+            img.alt = "Obra de arte en venta";
+            
+            // Añadir el evento para abrir el modal (pantalla completa)
+            img.addEventListener("click", function() {
+                modal.style.display = "block";
+                modalImg.src = this.src;
+            });
+            
+            // Meter la imagen en el div, y el div en la galería
+            divItem.appendChild(img);
+            galleryContainer.appendChild(divItem);
+        });
+
+    } catch (error) {
+        console.error("Error al cargar el catálogo:", error);
+        galleryContainer.innerHTML = '<p>Error al cargar las obras. Intenta recargar la página.</p>';
+    }
+}
+
+// Ejecutar la función apenas cargue la página
+cargarGaleria();
