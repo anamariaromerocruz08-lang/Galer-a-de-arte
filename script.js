@@ -1,79 +1,24 @@
+// ==========================================
+// 1. CONFIGURACIÓN Y CONSTANTES PRINCIPALES
+// ==========================================
 const API_URL = 'https://script.google.com/macros/s/AKfycbzaFdhaRmRhNc-gb1GldPX51a6llSaQ054y6We1v5YS6vEjsw8wuYcOPjCwbgh6RFSF/exec';
-
-const galleryContainer = document.getElementById("gallery-container");
-const modal = document.getElementById("imageModal");
-const modalImg = document.getElementById("expandedImg");
-
-// ... y el resto del código sigue igual hacia abajo ...
 const TELEGRAM_TOKEN = "8788807513:AAF4QTx8ee8CHIIn0Zdh1rW_AQJSg8RAPHw";
 const TELEGRAM_CHAT_ID = "6504235959"; 
 
-// DATOS BASE PARA GENERAR LAS 500 OBRAS AUTOMÁTICAS
-const nombresObras = ["Reflejos del Alma", "Atardecer Eterno", "Susurros de Florencia", "Luces de Tokio", "Abstracción Oceánica", "Horizonte Desértico", "Miradas Ocultas", "Esencia Cósmica", "Siluetas de Invierno", "Canto de Esperanza"];
-const artistas = ["Ana María", "Jean-Pierre Clauve", "Elena Rossi", "Kenji Sato", "William Brooks", "Carlos Mendoza", "Sofia Kovalev", "Alessandro Bianchi", "Chloe Dupont", "Liam O'Connor"];
-const paises = ["México", "Francia", "Italia", "Japón", "Canadá", "España", "Rusia", "Países Bajos", "Reino Unido", "Argentina"];
+// Elementos del DOM para la galería y el visor
+const galleryContainer = document.getElementById("gallery-container") || document.getElementById("gallery-grid");
+const imageModal = document.getElementById("imageModal");
+const expandedImg = document.getElementById("expandedImg");
+const closeImgBtn = document.querySelector(".close-btn");
 
-const artworks = [];
-
-// GENERACIÓN DE LAS 500 OBRAS ASIGNANDO TUS LINK EXPERTOS AL PRINCIPIO
-for (let i = 1; i <= 500; i++) {
-    let titulo = `${nombresObras[i % nombresObras.length]} N° ${i}`;
-    let artist = artistas[i % artistas.length];
-    let pais = paises[i % paises.length];
-    let imagenArteReal = `https://picsum.photos/id/${(i * 3) % 1000}/500/400`;
-
-    // Asignación exacta de tus enlaces correspondientes
-    if (i === 1) {
-        titulo = "Naturaleza y Paisaje Clásico";
-        artist = "Paisajista Tradicional";
-        pais = "Italia";
-        imagenArteReal = "https://tse1.mm.bing.net/th/id/OIP.EYcIEUrFSlkKw9QVKGmKOwHaE8?r=0&rs=1&pid=ImgDetMain&o=7&rm=3";
-    } else if (i === 2) {
-        titulo = "El Grito";
-        artist = "Edvard Munch";
-        pais = "Noruega";
-        imagenArteReal = "https://galuvi.com/wp-content/uploads/2020/06/el-grito-munch-1280x720-1.jpg";
-    } else if (i === 3) {
-        titulo = "Abstracción Geométrica y Color";
-        artist = "Expresionista Moderno";
-        pais = "España";
-        imagenArteReal = "https://th.bing.com/th/id/R.ac3641cfd6796994c6c75be92b020dde?rik=J4acEhgRGLtdvg&pid=ImgRaw&r=0";
-    } else if (i === 4) {
-        titulo = "Arte Urbano Contemporáneo";
-        artist = "Muralista Urbano";
-        pais = "México";
-        imagenArteReal = "https://th.bing.com/th/id/R.563a5be56178bf5307217b66e041200d?rik=5Yf97xi8IjEGAw&riu=http%3a%2f%2fwww.recreoviral.com%2fwp-content%2fuploads%2f2015%2f09%2fArte-urbano-2015-alrededor-del-mundo-4.jpg&ehk=DPGW8sYSAGt98MNRV94DOUaurvZGlQv%2fc%2bkaeIzyTUk%3d&risl=&pid=ImgRaw&r=0";
-    } else if (i === 5) {
-        titulo = "Composición Surrealista";
-        artist = "Diseñador Creativo";
-        pais = "Francia";
-        imagenArteReal = "https://i.pinimg.com/originals/b8/ad/73/b8ad73a6f64852dc37920c413f668c16.jpg";
-    } else if (i === 6) {
-        titulo = "Estructura Cubista Premium";
-        artist = "Juan Gris";
-        pais = "España";
-        imagenArteReal = "https://www.singulart.com/blog/wp-content/uploads/2023/11/Juan-Gris-cubism-1140x760.jpg";
-    }
-
-    const esNacional = pais === "México";
-
-    artworks.push({
-        id: i,
-        title: titulo,
-        artist: artist,
-        origin: pais,
-        type: esNacional ? "nacional" : "extranjero",
-        details: `Pieza de Exposición Exclusiva — Temporada Anual 2026`,
-        image: imagenArteReal
-    });
-}
-
-// ALERTA DE VISITA AUTOMÁTICA
+// ==========================================
+// 2. SISTEMA DE ALERTA DE VISITAS
+// ==========================================
 function notificarVisita() {
     const url = `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`;
     const ahora = new Date();
     const horaFormateada = ahora.toLocaleTimeString('es-MX', { hour: '2-digit', minute: '2-digit' });
-    const mensajeVisita = `👀 *¡Alguien acaba de entrar a tu galería de arte!* \nHora: ${horaFormateada}`;
+    const mensajeVisita = `👀 *¡Alguien acaba de entrar a tu galería de arte virtual!* \nHora: ${horaFormateada}`;
 
     fetch(url, {
         method: "POST",
@@ -82,210 +27,154 @@ function notificarVisita() {
     }).catch(error => console.error("Error de visita:", error));
 }
 
-// INYECTAR TARJETAS EN LA GALERÍA
-function loadGallery() {
-    const galleryGrid = document.getElementById("gallery-grid");
-    if (!galleryGrid) return;
-    galleryGrid.innerHTML = "";
+// ==========================================
+// 3. GENERADOR DE GALERÍA HÍBRIDA (Tus obras + Google Sheets)
+// ==========================================
+async function cargarGaleriaCompleta() {
+    if (!galleryContainer) return;
+    galleryContainer.innerHTML = ''; // Limpiar mensaje de carga
 
-    artworks.forEach(art => {
-        const card = document.createElement("div");
-        card.className = "art-card";
-        card.innerHTML = `
-            <div class="badge ${art.type}">${art.origin}</div>
-            <img src="${art.image}" alt="${art.title}" class="art-image" loading="lazy">
-            <div class="card-info">
-                <h3>${art.title}</h3>
-                <p class="artist">Por: <strong>${art.artist}</strong></p>
-                <p class="details">${art.details}</p>
-                <button class="btn-action" onclick="openOfferModal('${art.title}', '${art.artist}')">Hacer una Oferta / Comprar</button>
-            </div>
-        `;
-        galleryGrid.appendChild(card);
-    });
+    // A. Primero cargamos las 6 obras estelares de Ana María
+    const obrasBase = [
+        { title: "Naturaleza y Paisaje Clásico", artist: "Paisajista Tradicional", origin: "Italia", image: "https://tse1.mm.bing.net/th/id/OIP.EYcIEUrFSlkKw9QVKGmKOwHaE8?r=0&rs=1&pid=ImgDetMain&o=7&rm=3" },
+        { title: "El Grito", artist: "Edvard Munch", origin: "Noruega", image: "https://galuvi.com/wp-content/uploads/2020/06/el-grito-munch-1280x720-1.jpg" },
+        { title: "Abstracción Geométrica y Color", artist: "Expresionista Moderno", origin: "España", image: "https://th.bing.com/th/id/R.ac3641cfd6796994c6c75be92b020dde?rik=J4acEhgRGLtdvg&pid=ImgRaw&r=0" },
+        { title: "Arte Urbano Contemporáneo", artist: "Muralista Urbano", origin: "México", image: "https://th.bing.com/th/id/R.563a5be56178bf5307217b66e041200d?rik=5Yf97xi8IjEGAw&riu=http%3a%2f%2fwww.recreoviral.com%2fwp-content%2fuploads%2f2015%2f09%2fArte-urbano-2015-alrededor-del-mundo-4.jpg&ehk=DPGW8sYSAGt98MNRV94DOUaurvZGlQv%2fc%2bkaeIzyTUk%3d&risl=&pid=ImgRaw&r=0" },
+        { title: "Composición Surrealista", artist: "Diseñador Creativo", origin: "Francia", image: "https://i.pinimg.com/originals/b8/ad/73/b8ad73a6f64852dc37920c413f668c16.jpg" },
+        { title: "Estructura Cubista Premium", artist: "Juan Gris", origin: "España", image: "https://www.singulart.com/blog/wp-content/uploads/2023/11/Juan-Gris-cubism-1140x760.jpg" }
+    ];
+
+    obrasBase.forEach(crearTarjetaDeArte);
+
+    // B. Luego consultamos la base de datos para traer las fotos nuevas de Telegram
+    try {
+        const respuesta = await fetch(API_URL);
+        const imagenesNuevas = await respuesta.json();
+        
+        let contador = 7;
+        imagenesNuevas.forEach(url => {
+            crearTarjetaDeArte({
+                title: `Obra Exclusiva N° ${contador}`,
+                artist: "Artista Invitado",
+                origin: "Internacional",
+                image: url
+            });
+            contador++;
+        });
+    } catch (error) {
+        console.error("No se pudieron cargar las obras de Telegram:", error);
+    }
 }
 
+// Función auxiliar para dibujar cada tarjeta con su botón de oferta
+function crearTarjetaDeArte(art) {
+    const card = document.createElement("div");
+    card.className = "art-card gallery-item"; 
+    
+    // Identificar si es nacional para el estilo
+    const tipo = art.origin === "México" ? "nacional" : "extranjero";
+
+    card.innerHTML = `
+        <div class="badge ${tipo}">${art.origin}</div>
+        <img src="${art.image}" alt="${art.title}" class="art-image" loading="lazy">
+        <div class="card-info" style="padding: 15px;">
+            <h3 style="margin:0 0 5px 0;">${art.title}</h3>
+            <p class="artist" style="margin:0 0 5px 0; color:#888;">Por: <strong>${art.artist}</strong></p>
+            <button class="btn-action" onclick="openOfferModal('${art.title}', '${art.artist}')" style="margin-top:10px; padding:10px; width:100%; cursor:pointer;">Hacer una Oferta</button>
+        </div>
+    `;
+
+    // Añadir el evento para abrir la imagen en pantalla completa
+    const imgElement = card.querySelector('img');
+    imgElement.addEventListener("click", function() {
+        if (imageModal && expandedImg) {
+            imageModal.style.display = "block";
+            expandedImg.src = this.src;
+        }
+    });
+
+    galleryContainer.appendChild(card);
+}
+
+// ==========================================
+// 4. FUNCIONES DEL VISOR DE IMÁGENES (MODAL)
+// ==========================================
+if (closeImgBtn) {
+    closeImgBtn.addEventListener("click", () => imageModal.style.display = "none");
+}
+window.addEventListener("click", (event) => {
+    if (event.target === imageModal) imageModal.style.display = "none";
+});
+
+// ==========================================
+// 5. SISTEMA DE OFERTAS A TELEGRAM
+// ==========================================
 function openOfferModal(artName, artistName) {
-    document.getElementById("purchaseModal").style.display = "block";
-    document.getElementById("modalDescription").innerText = `Ofertando por: "${artName}" de ${artistName}`;
-    document.getElementById("selectedArt").value = artName;
-    document.getElementById("selectedArtist").value = artistName;
+    const modalCompra = document.getElementById("purchaseModal");
+    if (modalCompra) {
+        modalCompra.style.display = "block";
+        document.getElementById("modalDescription").innerText = `Ofertando por: "${artName}" de ${artistName}`;
+        document.getElementById("selectedArt").value = artName;
+        document.getElementById("selectedArtist").value = artistName;
+    }
 }
 
 function closeOfferModal() {
-    document.getElementById("purchaseModal").style.display = "none";
-    document.getElementById("extendedOfferForm").reset();
+    const modalCompra = document.getElementById("purchaseModal");
+    if (modalCompra) {
+        modalCompra.style.display = "none";
+        const form = document.getElementById("extendedOfferForm");
+        if (form) form.reset();
+    }
 }
 
-// SISTEMA DE OFERTAS A TELEGRAM
-document.getElementById("extendedOfferForm").onsubmit = function(e) {
-    e.preventDefault();
-    const obra = document.getElementById("selectedArt").value;
-    const artista = document.getElementById("selectedArtist").value;
-    const nombre = document.getElementById("buyerName").value;
-    const correo = document.getElementById("buyerEmail").value;
-    const telefono = document.getElementById("buyerPhone").value;
-    const direccion = document.getElementById("buyerAddress").value;
-    const oferta = document.getElementById("buyerOffer").value;
-    const pago = document.getElementById("paymentType").value;
+const offerForm = document.getElementById("extendedOfferForm");
+if (offerForm) {
+    offerForm.onsubmit = function(e) {
+        e.preventDefault();
+        
+        const btnSubmit = offerForm.querySelector('button[type="submit"]');
+        const originalText = btnSubmit.innerHTML;
+        btnSubmit.innerHTML = "Enviando...";
+        btnSubmit.disabled = true;
 
-    const mensajeTelegram = `
-    
-🎨 *¡NUEVA OFERTA RECIBIDA!* 🎨
-------------------------------------
-🖼️ *Obra:* ${obra}
-👤 *Autor:* ${artista}
+        const obra = document.getElementById("selectedArt").value;
+        const artista = document.getElementById("selectedArtist").value;
+        const nombre = document.getElementById("buyerName").value;
+        const correo = document.getElementById("buyerEmail").value;
+        const telefono = document.getElementById("buyerPhone").value;
+        const direccion = document.getElementById("buyerAddress").value;
+        const oferta = document.getElementById("buyerOffer").value;
+        const pago = document.getElementById("paymentType").value;
 
-💰 *Oferta del Cliente:* $${oferta} USD
-💳 *Método de Pago:* ${pago}
+        const mensajeTelegram = `🎨 *¡NUEVA OFERTA RECIBIDA!* 🎨\n------------------------------------\n🖼️ *Obra:* ${obra}\n👤 *Autor:* ${artista}\n\n💰 *Oferta:* $${oferta} USD\n💳 *Pago:* ${pago}\n\n📋 *COMPRADOR:*\n• *Nombre:* ${nombre}\n• *Email:* ${correo}\n• *Tel.*: ${telefono}\n• *Dir.*: ${direccion}`;
 
-📋 *DATOS DEL COMPRADOR:*
-• *Nombre:* ${nombre}
-• *Email:* ${correo}
-• *Teléfono:* ${telefono}
-• *Dirección:* ${direccion}
-------------------------------------
-    `;
+        const url = `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`;
+        fetch(url, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: mensajeTelegram, parse_mode: "Markdown" })
+        })
+        .then(response => {
+            if (response.ok) {
+                alert(`¡Propuesta registrada con éxito, ${nombre}!\n\nAna María ha recibido tu oferta.`);
+                closeOfferModal();
+            } else {
+                alert("Hubo un inconveniente al procesar. Inténtalo de nuevo.");
+            }
+        })
+        .catch(error => console.error("Error:", error))
+        .finally(() => {
+            btnSubmit.innerHTML = originalText;
+            btnSubmit.disabled = false;
+        });
+    };
+}
 
-    const url = `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`;
-    fetch(url, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: mensajeTelegram, parse_mode: "Markdown" })
-    })
-    .then(response => {
-        if (response.ok) alert(`¡Propuesta registrada con éxito, ${nombre}!\n\nAna María ha recibido tu oferta.`);
-        else alert("Hubo un inconveniente al procesar. Inténtalo de nuevo.");
-    })
-    .catch(error => console.error("Error:", error));
-    
-    closeOfferModal();
-};
-
+// ==========================================
+// 6. INICIALIZAR PÁGINA
+// ==========================================
 window.onload = function() {
-    loadGallery();
+    cargarGaleriaCompleta();
     notificarVisita(); 
 };
-// Seleccionar los elementos del DOM (Document Object Model)
-const modal = document.getElementById("imageModal");
-const modalImg = document.getElementById("expandedImg");
-const closeBtn = document.querySelector(".close-btn");
-const galleryImages = document.querySelectorAll(".gallery-item img");
-
-// Recorrer todas las imágenes de la galería para darles la función de clic
-galleryImages.forEach(img => {
-    img.addEventListener("click", function() {
-        modal.style.display = "block"; // Mostrar la ventana emergente
-        modalImg.src = this.src;       // Asignar la misma URL de la imagen clickeada
-    });
-});
-
-// Función para cerrar el modal al hacer clic en la "X"
-closeBtn.addEventListener("click", function() {
-    modal.style.display = "none";
-});
-
-// Función para cerrar el modal si se hace clic en el fondo oscuro (fuera de la imagen)
-modal.addEventListener("click", function(event) {
-    if (event.target === modal) {
-        modal.style.display = "none";
-    }
-});
-// La URL que obtendrás en el paso de Google Apps Script (abajo)
-const scriptURL = 'AQUI_PEGARAS_TU_URL_DE_GOOGLE'; 
-
-const form = document.getElementById('formulario-compra');
-const btnSubmit = document.getElementById('btn-submit');
-
-form.addEventListener('submit', e => {
-  e.preventDefault(); // Evita que la página cambie
-
-  // Cambia el estado del botón para que el usuario sepa que está cargando
-  const btnTextoOriginal = btnSubmit.innerHTML;
-  btnSubmit.innerHTML = 'Procesando Oferta...';
-  btnSubmit.disabled = true;
-
-  // Enviar los datos
-  fetch(scriptURL, { method: 'POST', body: new FormData(form)})
-    .then(response => {
-      alert('¡Excelente! Tu oferta ha sido enviada con éxito. Nos pondremos en contacto contigo.');
-      form.reset(); // Limpia los campos del formulario
-      btnSubmit.innerHTML = btnTextoOriginal;
-      btnSubmit.disabled = false;
-    })
-    .catch(error => {
-      console.error('Error!', error.message);
-      alert('Hubo un problema al enviar la oferta. Por favor, inténtalo de nuevo.');
-      btnSubmit.innerHTML = btnTextoOriginal;
-      btnSubmit.disabled = false;
-    });
-});
-// Esta función envía el catálogo a tu página web
-function doGet() {
-  try {
-    var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Catalogo");
-    var datos = sheet.getDataRange().getValues();
-    var urls = [];
-    
-    // Saltamos la fila 1 (los encabezados) y leemos las URLs
-    for (var i = 1; i < datos.length; i++) {
-      if(datos[i][0] !== "") {
-        urls.push(datos[i][0]);
-      }
-    }
-    
-    // Devolvemos la lista en formato JSON
-    return ContentService.createTextOutput(JSON.stringify(urls))
-      .setMimeType(ContentService.MimeType.JSON);
-      
-  } catch(error) {
-    return ContentService.createTextOutput(JSON.stringify({"error": error.message}))
-      .setMimeType(ContentService.MimeType.JSON);
-  }
-}
-// Pega la misma URL que sacaste de Google Apps Script
-const API_URL = 'AQUI_PEGARAS_TU_URL_DE_GOOGLE'; 
-
-const galleryContainer = document.getElementById("gallery-container");
-const modal = document.getElementById("imageModal");
-const modalImg = document.getElementById("expandedImg");
-
-// 1. Función para cargar el catálogo desde Google Sheets
-async function cargarGaleria() {
-    try {
-        const respuesta = await fetch(API_URL);
-        const imagenes = await respuesta.json();
-        
-        // Limpiar el contenedor (quitar el "Cargando...")
-        galleryContainer.innerHTML = '';
-        
-        // Construir cada obra
-        imagenes.forEach(url => {
-            // Crear el div contenedor
-            const divItem = document.createElement("div");
-            divItem.className = "gallery-item";
-            
-            // Crear la imagen
-            const img = document.createElement("img");
-            img.src = url;
-            img.alt = "Obra de arte en venta";
-            
-            // Añadir el evento para abrir el modal (pantalla completa)
-            img.addEventListener("click", function() {
-                modal.style.display = "block";
-                modalImg.src = this.src;
-            });
-            
-            // Meter la imagen en el div, y el div en la galería
-            divItem.appendChild(img);
-            galleryContainer.appendChild(divItem);
-        });
-
-    } catch (error) {
-        console.error("Error al cargar el catálogo:", error);
-        galleryContainer.innerHTML = '<p>Error al cargar las obras. Intenta recargar la página.</p>';
-    }
-}
-
-// Ejecutar la función apenas cargue la página
-cargarGaleria();
