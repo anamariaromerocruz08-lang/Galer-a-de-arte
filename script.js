@@ -1,4 +1,10 @@
-// CONFIGURACIÓN DE TU BOT DE TELEGRAM
+const API_URL = 'https://script.google.com/macros/s/AKfycbzaFdhaRmRhNc-gb1GldPX51a6llSaQ054y6We1v5YS6vEjsw8wuYcOPjCwbgh6RFSF/exec';
+
+const galleryContainer = document.getElementById("gallery-container");
+const modal = document.getElementById("imageModal");
+const modalImg = document.getElementById("expandedImg");
+
+// ... y el resto del código sigue igual hacia abajo ...
 const TELEGRAM_TOKEN = "8788807513:AAF4QTx8ee8CHIIn0Zdh1rW_AQJSg8RAPHw";
 const TELEGRAM_CHAT_ID = "6504235959"; 
 
